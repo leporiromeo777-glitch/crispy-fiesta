@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weblinkx – Business Scout Ticino</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 36px 40px 28px;
+      border-bottom: 3px solid #e94560;
+    }
+    header .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+    header .logo {
+      width: 44px; height: 44px;
+      background: #e94560;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -1px;
+    }
+    header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+    header p { font-size: 14px; color: #a0aec0; margin-top: 4px; }
+    .stats { display: flex; gap: 24px; margin-top: 20px; }
+    .stat { background: rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 18px; }
+    .stat .num { font-size: 22px; font-weight: 700; color: #e94560; }
+    .stat .lbl { font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* CONTROLS */
+    .controls {
+      background: #fff;
+      padding: 18px 40px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .controls label { font-size: 13px; font-weight: 600; color: #4a5568; }
+    .controls input, .controls select {
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      color: #2d3748;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .controls input { width: 220px; }
+    .controls input:focus, .controls select:focus { border-color: #e94560; }
+    .count-badge {
+      margin-left: auto;
+      background: #1a1a2e;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* MAIN */
+    main { padding: 28px 40px 60px; }
+
+    /* CARDS */
+    #cards { display: flex; flex-direction: column; gap: 16px; }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .card:hover { box-shadow: 0 6px 24px rgba(0,0,0,.10); transform: translateY(-1px); }
+
+    .card-header {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid #f0f2f5;
+    }
+    .card-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #1a1a2e; color: #fff;
+      font-size: 13px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-name { font-size: 17px; font-weight: 700; color: #1a1a2e; }
+    .card-desc { font-size: 13px; color: #718096; margin-top: 2px; }
+    .sector-badge {
+      margin-left: auto; flex-shrink: 0;
+      background: #ebf4ff; color: #2b6cb0;
+      padding: 4px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 600;
+    }
+
+    .card-body {
+      padding: 16px 22px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px 24px;
+    }
+
+    .info-item { display: flex; flex-direction: column; gap: 2px; }
+    .info-label {
+      font-size: 10px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.6px;
+      color: #a0aec0;
+    }
+    .info-value { font-size: 13px; color: #2d3748; font-weight: 500; }
+    .info-value a { color: #2b6cb0; text-decoration: none; }
+    .info-value a:hover { text-decoration: underline; }
+    .no-data { color: #cbd5e0; font-style: italic; }
+
+    .card-footer {
+      padding: 14px 22px;
+      background: #f7fafc;
+      border-top: 1px solid #f0f2f5;
+      display: flex; align-items: center; gap: 12px;
+    }
+
+    /* EMAIL PREVIEW */
+    .email-toggle {
+      background: none; border: 1px solid #cbd5e0;
+      border-radius: 6px; padding: 7px 14px;
+      font-size: 12px; font-weight: 600; color: #4a5568;
+      cursor: pointer; transition: all .2s;
+    }
+    .email-toggle:hover { background: #f0f2f5; border-color: #a0aec0; }
+
+    .gmail-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: #e94560; color: #fff;
+      border: none; border-radius: 7px;
+      padding: 8px 18px;
+      font-size: 13px; font-weight: 700;
+      cursor: pointer; text-decoration: none;
+      transition: background .2s, transform .1s;
+    }
+    .gmail-btn:hover { background: #c53030; transform: scale(1.02); }
+    .gmail-btn.disabled {
+      background: #e2e8f0; color: #a0aec0; cursor: not-allowed;
+      pointer-events: none;
+    }
+    .gmail-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .email-preview {
+      display: none;
+      margin: 0 22px 16px;
+      background: #fffdf0;
+      border: 1px solid #f6e05e;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .email-preview.open { display: block; }
+    .email-preview-head {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; color: #975a16; margin-bottom: 8px;
+    }
+    .email-subject { font-size: 13px; font-weight: 700; color: #2d3748; margin-bottom: 6px; }
+    .email-body {
+      font-size: 13px; color: #4a5568; line-height: 1.6;
+      white-space: pre-line;
+    }
+
+    /* NO RESULTS */
+    #no-results {
+      display: none;
+      text-align: center; padding: 60px 20px;
+      color: #a0aec0; font-size: 15px;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center; padding: 20px;
+      font-size: 12px; color: #a0aec0;
+      border-top: 1px solid #e2e8f0;
+      background: #fff;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 24px 20px 20px; }
+      .controls { padding: 14px 20px; }
+      main { padding: 20px 20px 40px; }
+      .stats { gap: 12px; }
+      .card-header { flex-wrap: wrap; }
+      .sector-badge { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">W</div>
+    <div>
+      <h1>Weblinkx – Business Scout Ticino</h1>
+      <p>Generato il 22 maggio 2026 &nbsp;·&nbsp; Romeo Lepori</p>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="num">6</div><div class="lbl">Business trovati</div></div>
+    <div class="stat"><div class="num" id="stat-email">6</div><div class="lbl">Con email</div></div>
+    <div class="stat"><div class="num">6</div><div class="lbl">Settori</div></div>
+    <div class="stat"><div class="num">5</div><div class="lbl">Città</div></div>
+  </div>
+</header>
+
+<div class="controls">
+  <label for="search">🔍</label>
+  <input type="text" id="search" placeholder="Cerca per nome, città, settore…" oninput="filterCards()" />
+  <label for="sector-filter">Settore:</label>
+  <select id="sector-filter" onchange="filterCards()">
+    <option value="">Tutti i settori</option>
+  </select>
+  <label for="city-filter">Città:</label>
+  <select id="city-filter" onchange="filterCards()">
+    <option value="">Tutte le città</option>
+  </select>
+  <span class="count-badge" id="count-badge">10 risultati</span>
+</div>
+
+<main>
+  <div id="cards"></div>
+  <div id="no-results">Nessun risultato trovato. Prova un termine diverso.</div>
+</main>
+
+<footer>
+  Weblinkx Business Scout &nbsp;·&nbsp; Romeo Lepori &nbsp;·&nbsp; Dati raccolti tramite ricerca web pubblica
+</footer>
+
+<script>
+const businesses = [
+  {
+    id: 2,
+    name: "Ristorante Corona",
+    sector: "Ristorazione",
+    address: "Via Camminata 5",
+    city: "Bellinzona",
+    phone: "+41 91 825 28 44",
+    email: "info@ristorantecorona.com",
+    website: "http://www.ristorantecorona.com",
+    employees: "5–15",
+    description: "Ristorante tradizionale nel cuore di Bellinzona, con oltre 200 recensioni su TripAdvisor.",
+    subject: "Un sito web che fa venire fame – Romeo Lepori | Weblinkx",
+    body: "Ciao Ristorante Corona!\n\nSono Romeo di Weblinkx e aiuto i ristoranti ticinesi a presentarsi online al meglio. Un sito moderno con menù, prenotazioni e belle foto può fare la differenza per attrarre nuovi clienti.\n\nVi offro una soluzione semplice ed efficace, su misura per la vostra attività. Possiamo fare una breve chiamata?\n\nA presto!\nRomeo Lepori – Weblinkx"
+  },
+  {
+    id: 4,
+    name: "Beauty Corner by Elba Sechi",
+    sector: "Estetica",
+    address: "Via al Fiume 1",
+    city: "Viganello (Lugano)",
+    phone: "+41 79 844 41 54",
+    email: "info@beautycornerlugano.com",
+    website: "https://www.beautycornerlugano.com",
+    employees: "2–5",
+    description: "Centro estetico specializzato in trattamenti viso, corpo, epilazione laser, manicure e massaggi.",
+    subject: "Più clienti per il tuo centro estetico – Romeo Lepori | Weblinkx",
+    body: "Ciao Elba!\n\nSono Romeo di Weblinkx, mi occupo di siti web per piccole imprese in Ticino. Ho scoperto Beauty Corner e penso che un sito ancora più moderno possa portarti molti nuovi clienti.\n\nCreo soluzioni eleganti e facili da gestire, pensate per centri come il tuo. Ti va di sentirci per qualche minuto?\n\nA presto!\nRomeo Lepori – Weblinkx"
+  },
+  {
+    id: 5,
+    name: "Falegnameria Del Piano",
+    sector: "Artigianato",
+    address: "Via Garone 6",
+    city: "Barbengo (Lugano)",
+    phone: "+41 79 673 04 48",
+    email: "falegnameriadelpiano@gmail.com",
+    website: "https://www.falegnameriadelpiano.ch",
+    employees: "2–5",
+    description: "Falegnameria artigianale a Barbengo, nota in tutto il Ticino per la precisione e qualità dei lavori.",
+    subject: "Il tuo lavoro artigianale merita visibilità online – Weblinkx",
+    body: "Ciao Fabio!\n\nSono Romeo di Weblinkx, creo siti web professionali per artigiani in Ticino. La tua falegnameria ha un lavoro eccellente da mostrare: un sito con portfolio fotografico può portarti nuovi clienti ogni giorno.\n\nTi propongo una soluzione semplice e su misura. Possiamo fare una breve chiamata?\n\nA presto!\nRomeo Lepori – Weblinkx"
+  },
+  {
+    id: 6,
+    name: "Yoga Dinamico e Natural Wellness",
+    sector: "Yoga / Benessere",
+    address: "Via Luganetto 4",
+    city: "Viganello (Lugano)",
+    phone: "+41 76 756 01 74",
+    email: "infoyogadinamico@gmail.com",
+    website: "https://www.yogadinamico.ch",
+    employees: "2–5",
+    description: "Centro di yoga e terapie naturali a Viganello con corsi, eventi, formazione e wellness shop.",
+    subject: "Più iscritti ai tuoi corsi di yoga – Romeo Lepori | Weblinkx",
+    body: "Ciao!\n\nSono Romeo di Weblinkx, aiuto i centri benessere ticinesi a farsi trovare online. Ho scoperto Yoga Dinamico e penso che un sito con calendario corsi e prenotazioni online possa portarvi molti nuovi iscritti.\n\nVi propongo una soluzione moderna e semplice da gestire. Vi va di sentirci?\n\nA presto!\nRomeo Lepori – Weblinkx"
+  },
+  {
+    id: 7,
+    name: "Foto Giovetto",
+    sector: "Studio Fotografico",
+    address: "Via Serafino Balestra 29",
+    city: "Lugano",
+    phone: "+41 79 240 09 77",
+    email: "info@fotogiovetto.ch",
+    website: "https://www.fotogiovetto.com",
+    employees: "1–3",
+    description: "Studio fotografico professionale a Lugano dal 1994, guidato da Andrea Giovetto.",
+    subject: "Le tue foto meritano un sito all'altezza – Romeo Lepori | Weblinkx",
+    body: "Ciao Andrea!\n\nSono Romeo di Weblinkx, creo siti web per professionisti creativi in Ticino. Uno studio fotografico come il tuo merita una vetrina online elegante con portfolio, prezzi e prenotazioni.\n\nTi propongo qualcosa di semplice da gestire ma di grande impatto visivo. Ti va di sentirci?\n\nA presto!\nRomeo Lepori – Weblinkx"
+  },
+  {
+    id: 8,
+    name: "La Bio Forneria",
+    sector: "Panificio Bio",
+    address: "Via S. Pietro Pambio 1",
+    city: "Paradiso (Lugano)",
+    phone: "+41 79 136 70 82",
+    email: "info@labioforneria.ch",
+    website: "https://labioforneria.ch",
+    employees: "2–5",
+    description: "Panificio biologico certificato, senza glutine e lattosio, a Paradiso. Fondato da Larissa e Dario.",
+    subject: "Un sito web fresco come il tuo pane bio – Weblinkx",
+    body: "Ciao Larissa e Dario!\n\nSono Romeo di Weblinkx, creo siti web per piccole imprese ticinesi. La Bio Forneria ha una storia bellissima da raccontare: un sito con i vostri prodotti, la vostra storia e i punti vendita può farvi trovare da molti più clienti.\n\nVi propongo una soluzione semplice e su misura. Vi va di sentirci?\n\nA presto!\nRomeo Lepori – Weblinkx"
+  },
+];
+
+// Populate filters
+function populateFilters() {
+  const sectors = [...new Set(businesses.map(b => b.sector))].sort();
+  const cities = [...new Set(businesses.map(b => b.city))].sort();
+  const sF = document.getElementById('sector-filter');
+  const cF = document.getElementById('city-filter');
+  sectors.forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; sF.appendChild(o); });
+  cities.forEach(c => { const o = document.createElement('option'); o.value = c; o.textContent = c; cF.appendChild(o); });
+}
+
+function gmailUrl(email, subject, body) {
+  return 'https://mail.google.com/mail/?view=cm&to=' +
+    encodeURIComponent(email) + '&su=' +
+    encodeURIComponent(subject) + '&body=' +
+    encodeURIComponent(body);
+}
+
+function renderCards(list) {
+  const container = document.getElementById('cards');
+  const noRes = document.getElementById('no-results');
+  document.getElementById('count-badge').textContent = list.length + ' risultat' + (list.length === 1 ? 'o' : 'i');
+
+  if (list.length === 0) { container.innerHTML = ''; noRes.style.display = 'block'; return; }
+  noRes.style.display = 'none';
+
+  container.innerHTML = list.map(b => {
+    const hasEmail = !!b.email;
+    const hasWeb = !!b.website;
+    const gmailLink = hasEmail ? gmailUrl(b.email, b.subject, b.body) : '#';
+
+    return `
+    <div class="card" data-sector="${b.sector}" data-city="${b.city}" data-name="${b.name}">
+      <div class="card-header">
+        <div class="card-num">${b.id}</div>
+        <div>
+          <div class="card-name">${b.name}</div>
+          <div class="card-desc">${b.description}</div>
+        </div>
+        <div class="sector-badge">${b.sector}</div>
+      </div>
+
+      <div class="card-body">
+        <div class="info-item">
+          <span class="info-label">📍 Indirizzo</span>
+          <span class="info-value">${b.address}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">🏙️ Città</span>
+          <span class="info-value">${b.city}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">📞 Telefono</span>
+          <span class="info-value">${b.phone || '<span class="no-data">N/D</span>'}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">✉️ Email</span>
+          <span class="info-value">${hasEmail ? `<a href="mailto:${b.email}">${b.email}</a>` : '<span class="no-data">Non trovata</span>'}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">🌐 Sito Web</span>
+          <span class="info-value">${hasWeb ? `<a href="${b.website}" target="_blank" rel="noopener">${b.website.replace(/^https?:\/\/(www\.)?/, '')}</a>` : '<span class="no-data">Non trovato</span>'}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">👥 Dipendenti</span>
+          <span class="info-value">${b.employees}</span>
+        </div>
+      </div>
+
+      <div class="email-preview" id="preview-${b.id}">
+        <div class="email-preview-head">✉️ Anteprima Email</div>
+        <div class="email-subject">Oggetto: ${b.subject}</div>
+        <div class="email-body">${b.body}</div>
+      </div>
+
+      <div class="card-footer">
+        <button class="email-toggle" onclick="togglePreview(${b.id})">👁 Anteprima email</button>
+        ${hasEmail
+          ? `<a class="gmail-btn" href="${gmailLink}" target="_blank" rel="noopener">
+               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+               Apri in Gmail
+             </a>`
+          : `<span class="gmail-btn disabled">
+               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+               Email non trovata
+             </span>`
+        }
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function togglePreview(id) {
+  const el = document.getElementById('preview-' + id);
+  el.classList.toggle('open');
+  const btn = el.previousElementSibling.querySelector('.email-toggle') ||
+              el.parentElement.querySelector('.email-toggle');
+}
+
+function filterCards() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const sector = document.getElementById('sector-filter').value;
+  const city = document.getElementById('city-filter').value;
+
+  const filtered = businesses.filter(b => {
+    const matchQ = !q || [b.name, b.city, b.sector, b.description].some(f => f.toLowerCase().includes(q));
+    const matchS = !sector || b.sector === sector;
+    const matchC = !city || b.city === city;
+    return matchQ && matchS && matchC;
+  });
+  renderCards(filtered);
+}
+
+// Init
+populateFilters();
+renderCards(businesses);
+</script>
+</body>
+</html>
