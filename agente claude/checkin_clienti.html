@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weblinkx – Check-in Clienti</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%);
+      color: #fff;
+      padding: 36px 40px 28px;
+      border-bottom: 3px solid #e94560;
+    }
+    header .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 6px; }
+    header .logo {
+      width: 44px; height: 44px;
+      background: #e94560;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800; color: #fff; letter-spacing: -1px;
+    }
+    header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+    header p { font-size: 14px; color: #a0aec0; margin-top: 4px; }
+
+    .stats { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+    .stat { background: rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 18px; }
+    .stat .num { font-size: 22px; font-weight: 700; color: #e94560; }
+    .stat .lbl { font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .controls {
+      background: #fff;
+      padding: 18px 40px;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .controls label { font-size: 13px; font-weight: 600; color: #4a5568; }
+    .controls input, .controls select {
+      border: 1px solid #cbd5e0;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 14px;
+      color: #2d3748;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .controls input:focus, .controls select:focus { border-color: #e94560; }
+    .controls input { width: 240px; }
+    .controls .sep { color: #cbd5e0; font-size: 20px; }
+    .badge-legend { margin-left: auto; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+    .badge-legend span { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 20px; }
+
+    .table-wrap { padding: 32px 40px; overflow-x: auto; }
+
+    table {
+      width: 100%; border-collapse: collapse;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    thead tr { background: #1a1a2e; }
+    th {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #a0aec0;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+    th:hover { color: #e94560; }
+    th .sort-arrow { margin-left: 4px; opacity: 0.5; }
+    th.sorted .sort-arrow { opacity: 1; color: #e94560; }
+
+    tbody tr {
+      border-bottom: 1px solid #f0f4f8;
+      transition: background .15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fafbff; }
+
+    td { padding: 14px 16px; font-size: 14px; vertical-align: top; }
+
+    .client-name { font-weight: 700; color: #1a1a2e; font-size: 15px; }
+    .client-email { font-size: 12px; color: #718096; margin-top: 2px; }
+
+    .site-link {
+      color: #0f3460;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 13px;
+    }
+    .site-link:hover { color: #e94560; text-decoration: underline; }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .badge-settore-ristorazione { background: #fff5f0; color: #c05621; }
+    .badge-settore-estetica     { background: #fff0f5; color: #97266d; }
+    .badge-settore-studio       { background: #ebf8ff; color: #2b6cb0; }
+    .badge-settore-negozio      { background: #f0fff4; color: #276749; }
+    .badge-settore-artigiano    { background: #fffbeb; color: #975a16; }
+    .badge-settore-altro        { background: #f7fafc; color: #4a5568; }
+
+    .badge-stato-inviata   { background: #f0fff4; color: #276749; }
+    .badge-stato-bozza     { background: #fffbeb; color: #975a16; }
+    .badge-stato-da-fare   { background: #fff5f5; color: #9b2c2c; }
+
+    .note-cell { font-size: 12px; color: #718096; max-width: 260px; line-height: 1.5; }
+
+    .action-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 6px;
+      font-size: 12px; font-weight: 600;
+      cursor: pointer; border: none;
+      transition: all .15s;
+      text-decoration: none;
+    }
+    .btn-draft { background: #fff7ed; color: #c05621; border: 1px solid #fed7aa; }
+    .btn-draft:hover { background: #fed7aa; }
+    .btn-sito  { background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }
+    .btn-sito:hover  { background: #bee3f8; }
+
+    .actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    .data-vuota { font-size: 12px; color: #cbd5e0; font-style: italic; }
+
+    .no-results {
+      text-align: center; padding: 60px 20px;
+      color: #a0aec0; font-size: 15px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      color: #a0aec0;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 24px 20px; }
+      .controls { padding: 14px 20px; }
+      .table-wrap { padding: 20px; }
+      th, td { padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">W</div>
+    <div>
+      <h1>Weblinkx — Check-in Clienti</h1>
+      <p>Check-in bimestrale · Maggio 2026</p>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat">
+      <div class="num" id="stat-totale">—</div>
+      <div class="lbl">Clienti totali</div>
+    </div>
+    <div class="stat">
+      <div class="num" id="stat-bozza">—</div>
+      <div class="lbl">Bozze create</div>
+    </div>
+    <div class="stat">
+      <div class="num" id="stat-inviate">—</div>
+      <div class="lbl">Email inviate</div>
+    </div>
+  </div>
+</header>
+
+<div class="controls">
+  <label for="search">Cerca</label>
+  <input type="text" id="search" placeholder="Nome, email, settore…" oninput="filterTable()" />
+  <span class="sep">|</span>
+  <label for="filter-settore">Settore</label>
+  <select id="filter-settore" onchange="filterTable()">
+    <option value="">Tutti</option>
+  </select>
+  <span class="sep">|</span>
+  <label for="filter-stato">Stato email</label>
+  <select id="filter-stato" onchange="filterTable()">
+    <option value="">Tutti</option>
+    <option value="Bozza">Bozza</option>
+    <option value="Inviata">Inviata</option>
+    <option value="Da fare">Da fare</option>
+  </select>
+</div>
+
+<div class="table-wrap">
+  <table id="main-table">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Cliente <span class="sort-arrow">↕</span></th>
+        <th onclick="sortTable(1)">Sito <span class="sort-arrow">↕</span></th>
+        <th onclick="sortTable(2)">Settore <span class="sort-arrow">↕</span></th>
+        <th onclick="sortTable(3)">Stato email <span class="sort-arrow">↕</span></th>
+        <th>Note</th>
+        <th>Azioni</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+  <div class="no-results" id="no-results" style="display:none">Nessun cliente trovato.</div>
+</div>
+
+<footer>
+  Weblinkx · Romeo Lepori · Ticino · Aggiornato: <span id="update-date"></span>
+</footer>
+
+<script>
+const CLIENTI = [
+  {
+    nome: "Mario Rossi",
+    email: "mario@esempio.com",
+    sito: "https://www.esempio.com",
+    settore: "Ristorazione",
+    stato: "Bozza",
+    note: "Sito completato a febbraio 2026. Interessato ad aggiungere prenotazioni online.",
+    gmail_draft_id: "r2256412050282431536"
+  }
+];
+
+// ─── Render ────────────────────────────────────────────────────────────────
+
+function settoreBadgeClass(s) {
+  const map = {
+    ristorazione: "badge-settore-ristorazione",
+    estetica:     "badge-settore-estetica",
+    studio:       "badge-settore-studio",
+    negozio:      "badge-settore-negozio",
+    artigiano:    "badge-settore-artigiano"
+  };
+  const k = s.toLowerCase();
+  for (const [key, cls] of Object.entries(map)) {
+    if (k.includes(key)) return cls;
+  }
+  return "badge-settore-altro";
+}
+
+function statoBadgeClass(s) {
+  const map = {
+    "inviata": "badge-stato-inviata",
+    "bozza":   "badge-stato-bozza",
+    "da fare": "badge-stato-da-fare"
+  };
+  return map[s.toLowerCase()] || "badge-stato-da-fare";
+}
+
+function renderRow(c) {
+  const sito = c.sito
+    ? `<a class="site-link" href="${c.sito}" target="_blank" rel="noopener">${c.sito.replace(/^https?:\/\/(www\.)?/, '')}</a>`
+    : `<span class="data-vuota">non disponibile</span>`;
+
+  const gmailBtn = c.gmail_draft_id
+    ? `<a class="action-btn btn-draft" href="https://mail.google.com/mail/u/0/#drafts/${c.gmail_draft_id}" target="_blank" rel="noopener">✉ Bozza Gmail</a>`
+    : `<button class="action-btn btn-draft" disabled>✉ Bozza</button>`;
+
+  const sitoBtn = c.sito
+    ? `<a class="action-btn btn-sito" href="${c.sito}" target="_blank" rel="noopener">🔗 Visita sito</a>`
+    : '';
+
+  return `
+    <tr data-nome="${c.nome.toLowerCase()}" data-settore="${c.settore.toLowerCase()}" data-stato="${c.stato.toLowerCase()}">
+      <td>
+        <div class="client-name">${c.nome}</div>
+        <div class="client-email">${c.email}</div>
+      </td>
+      <td>${sito}</td>
+      <td><span class="badge ${settoreBadgeClass(c.settore)}">${c.settore}</span></td>
+      <td><span class="badge ${statoBadgeClass(c.stato)}">${c.stato}</span></td>
+      <td><div class="note-cell">${c.note || '—'}</div></td>
+      <td><div class="actions">${gmailBtn}${sitoBtn}</div></td>
+    </tr>`;
+}
+
+function buildTable(data) {
+  const tbody = document.getElementById("table-body");
+  tbody.innerHTML = data.map(renderRow).join('');
+
+  const noRes = document.getElementById("no-results");
+  noRes.style.display = data.length === 0 ? "block" : "none";
+
+  updateStats(data);
+}
+
+function updateStats(data) {
+  document.getElementById("stat-totale").textContent = CLIENTI.length;
+  document.getElementById("stat-bozza").textContent  = CLIENTI.filter(c => c.stato === "Bozza").length;
+  document.getElementById("stat-inviate").textContent = CLIENTI.filter(c => c.stato === "Inviata").length;
+}
+
+// ─── Filter ────────────────────────────────────────────────────────────────
+
+function filterTable() {
+  const q       = document.getElementById("search").value.toLowerCase();
+  const settore = document.getElementById("filter-settore").value.toLowerCase();
+  const stato   = document.getElementById("filter-stato").value.toLowerCase();
+
+  const filtered = CLIENTI.filter(c => {
+    const match_q       = !q || c.nome.toLowerCase().includes(q) || c.email.toLowerCase().includes(q) || c.settore.toLowerCase().includes(q) || c.note.toLowerCase().includes(q);
+    const match_settore = !settore || c.settore.toLowerCase().includes(settore);
+    const match_stato   = !stato   || c.stato.toLowerCase() === stato;
+    return match_q && match_settore && match_stato;
+  });
+
+  buildTable(filtered);
+}
+
+// ─── Sort ──────────────────────────────────────────────────────────────────
+
+let sortCol = -1, sortAsc = true;
+
+function sortTable(col) {
+  sortAsc = sortCol === col ? !sortAsc : true;
+  sortCol = col;
+
+  document.querySelectorAll("th").forEach((th, i) => {
+    th.classList.toggle("sorted", i === col);
+    const arrow = th.querySelector(".sort-arrow");
+    if (arrow) arrow.textContent = i === col ? (sortAsc ? "↑" : "↓") : "↕";
+  });
+
+  const keys = ["nome", "sito", "settore", "stato"];
+  const key  = keys[col];
+
+  const sorted = [...CLIENTI].sort((a, b) => {
+    const va = (a[key] || "").toLowerCase();
+    const vb = (b[key] || "").toLowerCase();
+    return sortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
+  });
+
+  buildTable(sorted);
+}
+
+// ─── Init ──────────────────────────────────────────────────────────────────
+
+(function init() {
+  // Popola filtro settori
+  const settori = [...new Set(CLIENTI.map(c => c.settore))].sort();
+  const sel = document.getElementById("filter-settore");
+  settori.forEach(s => {
+    const opt = document.createElement("option");
+    opt.value = s; opt.textContent = s;
+    sel.appendChild(opt);
+  });
+
+  document.getElementById("update-date").textContent =
+    new Date().toLocaleDateString("it-IT", { day: "2-digit", month: "long", year: "numeric" });
+
+  buildTable(CLIENTI);
+})();
+</script>
+
+</body>
+</html>
