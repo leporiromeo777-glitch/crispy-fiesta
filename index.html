@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Home | Le Ali del Cambiamento</title>
+<style>
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-Lt.otf') format('opentype');font-weight:300;font-style:normal}
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-Reg.otf') format('opentype');font-weight:400;font-style:normal}
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-Bd.otf') format('opentype');font-weight:700;font-style:normal}
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-It.otf') format('opentype');font-weight:400;font-style:italic}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Light.ttf') format('truetype');font-weight:300;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Regular.ttf') format('truetype');font-weight:400;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Medium.ttf') format('truetype');font-weight:500;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Bold.ttf') format('truetype');font-weight:700;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Italic.ttf') format('truetype');font-weight:400;font-style:italic}
+@font-face{font-family:'LS Harsey';src:url('fonts/LS Harsey Script.otf') format('opentype');font-weight:400;font-style:normal}
+:root{
+  --c1:#156D6A;
+  --c2:#C96185;
+  --c3:#569D9B;
+  --c4:#DEEAEA;
+  --c5:#DC90AD;
+  --lt:#F9E9EF;
+  --bg:#FEFDF9;
+  --tx:#2a2a2a;
+  --rd:10px;
+  --fh:'The Seasons',Georgia,serif;
+  --fb:'Montserrat',sans-serif;
+  --fa:'LS Harsey',cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--fb);color:var(--tx);background:var(--bg);overflow-x:hidden}
+h1,h2,h3{font-family:var(--fh);font-weight:400}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(254,253,249,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(21,109,106,.12);padding:0 2rem}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:70px}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-logo img{height:42px;width:auto}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;font-size:.85rem;font-weight:500;color:var(--tx);letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--c1)}
+.nav-links a.active{border-bottom:2px solid var(--c2);padding-bottom:2px}
+.hero{position:relative;height:100vh;min-height:620px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-media{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(21,109,106,.72) 0%,rgba(86,157,155,.5) 55%,rgba(0,0,0,.28) 100%)}
+.hero-content{position:relative;z-index:1;text-align:center;color:#fff;padding:2rem;max-width:860px}
+.hero-accent{font-family:var(--fa);font-size:1.6rem;color:rgba(255,255,255,.85);display:block;margin-bottom:.5rem;letter-spacing:.03em}
+.hero-content h1{font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:300;line-height:1.2;margin-bottom:1rem;letter-spacing:.02em}
+.hero-content h1 em{font-style:italic;color:rgba(255,255,255,.9)}
+.hero-content p{font-size:1.1rem;font-weight:300;opacity:.9;margin-bottom:2.8rem;line-height:1.75}
+.btn{display:inline-block;padding:.9rem 2.2rem;border-radius:50px;text-decoration:none;font-family:var(--fb);font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:all .28s;cursor:pointer;border:none}
+.btn-primary{background:var(--c2);color:#fff}
+.btn-primary:hover{background:#b3506f;transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,97,133,.35)}
+.btn-outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.7)}
+.btn-outline:hover{background:rgba(255,255,255,.12);border-color:#fff}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.scroll-hint{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:.4rem;color:rgba(255,255,255,.6);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
+.scroll-hint::after{content:'';display:block;width:1px;height:32px;background:rgba(255,255,255,.4);animation:scrollAnim 1.8s ease-in-out infinite}
+@keyframes scrollAnim{0%,100%{opacity:.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.3)}}
+section{padding:6rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-family:var(--fa);font-size:1.1rem;color:var(--c2);display:block;margin-bottom:.5rem}
+.pattern-bg{background-color:var(--c4);background-image:radial-gradient(circle,rgba(21,109,106,.12) 1px,transparent 1px);background-size:24px 24px}
+.pattern-rosa{background-color:var(--lt);background-image:radial-gradient(circle,rgba(201,97,133,.1) 1px,transparent 1px);background-size:24px 24px}
+.about-preview{background:var(--bg)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-img-wrap{position:relative}
+.about-img-wrap img:not(.about-img-accent){width:100%;border-radius:var(--rd);display:block;box-shadow:0 20px 60px rgba(21,109,106,.15)}
+.about-img-accent{position:absolute;bottom:-1.5rem;right:-1.5rem;width:140px;height:140px;border-radius:50%;object-fit:cover;border:5px solid var(--bg);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.about-text h2{font-size:clamp(2rem,3.5vw,2.8rem);color:var(--c1);margin-bottom:1.5rem;line-height:1.3}
+.about-text p{line-height:1.85;color:#555;margin-bottom:1.25rem;font-size:.95rem}
+.services-section{background:var(--bg)}
+.services-header{text-align:center;max-width:640px;margin:0 auto 4rem}
+.services-header h2{font-size:clamp(2rem,3vw,2.6rem);color:var(--c1);margin-bottom:1rem}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.service-card{padding:2.5rem;border-radius:var(--rd);background:#fff;border:1px solid rgba(21,109,106,.1);transition:all .3s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c1),var(--c2))}
+.service-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(21,109,106,.12)}
+.service-card h3{font-family:var(--fh);font-size:1.2rem;color:var(--c1);margin-bottom:.75rem;font-weight:400}
+.service-card p{font-size:.9rem;line-height:1.75;color:#666}
+.service-icon{font-family:var(--fa);font-size:2rem;color:var(--c2);display:block;margin-bottom:.75rem}
+.quote-section{text-align:center;padding:7rem 2rem;background:var(--bg)}
+.quote-section blockquote{max-width:780px;margin:0 auto;font-family:var(--fh);font-size:clamp(1.5rem,2.8vw,2.2rem);font-style:italic;color:var(--c1);line-height:1.55;font-weight:300}
+.quote-section cite{display:block;margin-top:1.5rem;font-family:var(--fa);font-size:1.1rem;color:var(--c2)}
+.cta-section{text-align:center;padding:6rem 2rem;background:var(--c1);color:#fff}
+.cta-section h2{font-size:clamp(1.8rem,3vw,2.6rem);color:#fff;margin-bottom:1rem}
+.cta-section p{opacity:.85;max-width:520px;margin:.75rem auto 2.5rem;line-height:1.75;font-weight:300}
+.btn-cta{background:#fff;color:var(--c1);font-weight:700}
+.btn-cta:hover{background:var(--lt);transform:translateY(-2px)}
+footer{background:var(--tx);color:rgba(255,255,255,.7);padding:3rem 2rem;text-align:center}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-logo{margin-bottom:1rem}
+.footer-logo img{height:36px;opacity:.85}
+.footer-links{display:flex;gap:2rem;justify-content:center;list-style:none;margin:1rem 0;flex-wrap:wrap}
+.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.82rem;letter-spacing:.05em;transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:.78rem;color:#fff;margin-top:1rem}
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:none}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .about-grid,.services-grid{grid-template-columns:1fr}
+  .about-img-accent{width:100px;height:100px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="https://static.wixstatic.com/media/d2e1e0_8a4f739d2e27484dbca918e6e251e385~mv2.png/v1/fill/w_417,h_82,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/d2e1e0_8a4f739d2e27484dbca918e6e251e385~mv2.png" alt="Le Ali del Cambiamento">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="chi-siamo.html">Chi sono</a></li>
+      <li><a href="servizi.html">Servizi</a></li>
+      <li><a href="team.html">Studio</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <video class="hero-media" autoplay muted loop playsinline>
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_3EDw5qmardIfuEPJwyYr4uyUEvi/hf_20260525_220809_ef73ff4c-6bee-4468-b2e0-56166d13ad06.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-accent">Benvenuta</span>
+    <h1>Le Ali del <em>Cambiamento</em></h1>
+    <p>Un percorso di consapevolezza, trasformazione e autenticità.<br>Numerologia, Aura-Soma e molto altro per ritrovare te stessa.</p>
+    <div class="hero-btns">
+      <a href="servizi.html" class="btn btn-primary">Scopri i Servizi</a>
+      <a href="contatti.html" class="btn btn-outline">Prenota una Consulenza</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scorri</div>
+</section>
+
+<section class="about-preview">
+  <div class="container">
+    <div class="about-grid fade-up">
+      <div class="about-img-wrap">
+        <img src="https://static.wixstatic.com/media/6950bf_da12d926c0044dcd81adc4fa370ee0ce~mv2.jpg/v1/fill/w_1200,h_800,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/mia%20foto%205_edited.jpg" alt="Laura Lepori">
+        <img class="about-img-accent" src="https://d8j0ntlcm91z4.cloudfront.net/user_3EDw5qmardIfuEPJwyYr4uyUEvi/hf_20260525_220419_0652f3e4-9e76-4c8d-9ef4-56e31b4aaea0.png" alt="">
+      </div>
+      <div class="about-text">
+        <span class="section-label">Chi sono</span>
+        <h2>Laura Lepori</h2>
+        <p>Sono Laura, guida olistica con sede a Tesserete, Ticino. Attraverso strumenti come la Numerologia Esoterica, l'Aura-Soma, il Soul/Body Consciousness Alignment e i Tarocchi, accompagno le persone in percorsi di consapevolezza e trasformazione autentica.</p>
+        <p>Il mio approccio è profondamente personale: ogni seduta è un viaggio unico, pensato per riportarti in contatto con la tua essenza più vera.</p>
+        <a href="chi-siamo.html" class="btn btn-primary" style="margin-top:.5rem">La mia storia</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-section pattern-bg">
+  <div class="container">
+    <div class="services-header fade-up">
+      <span class="section-label">I Percorsi</span>
+      <h2>Strumenti per la tua trasformazione</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <span class="service-icon">&#x2022;</span>
+        <h3>Numerologia Esoterica</h3>
+        <p>Attraverso i numeri del tuo nome e della tua data di nascita, esploriamo chi sei davvero: i tuoi doni, le tue sfide, il tuo cammino.</p>
+      </div>
+      <div class="service-card fade-up">
+        <span class="service-icon">&#x2022;</span>
+        <h3>Aura-Soma</h3>
+        <p>Un sistema di colori viventi che parla direttamente all'anima. Le bottiglie che scegli rivelano strati profondi della tua personalità e del tuo percorso.</p>
+      </div>
+      <div class="service-card fade-up">
+        <span class="service-icon">&#x2022;</span>
+        <h3>Soul / Body Consciousness</h3>
+        <p>Un metodo di allineamento mente-corpo che scioglie blocchi energetici e riporta armonia tra la tua essenza spirituale e la tua realtà fisica.</p>
+      </div>
+      <div class="service-card fade-up">
+        <span class="service-icon">&#x2022;</span>
+        <h3>Tarocchi</h3>
+        <p>Non una predizione del futuro, ma uno specchio per il presente. I Tarocchi ti aiutano a vedere con chiarezza le energie in gioco nella tua vita.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:3rem" class="fade-up">
+      <a href="servizi.html" class="btn btn-primary">Tutti i servizi</a>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <blockquote class="fade-up">
+    "Ogni cambiamento inizia da dentro.<br>
+    Io sono qui per accompagnarti in quel viaggio."
+    <cite>Laura Lepori</cite>
+  </blockquote>
+</section>
+
+<section class="cta-section">
+  <div class="container fade-up">
+    <h2>Pronta a iniziare il tuo percorso?</h2>
+    <p>Una consulenza gratuita e senza impegno per scoprire quale strumento fa per te.</p>
+    <a href="contatti.html" class="btn btn-cta">Scrivimi ora</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="images/logo-white.png" alt="Le Ali del Cambiamento">
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi sono</a></li>
+      <li><a href="servizi.html">Servizi</a></li>
+      <li><a href="team.html">Studio</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+    <p class="footer-copy">Studio Olistico Le Ali del Cambiamento &middot; Tesserete, Ticino &middot; studio@lealidelcambiamento.com</p>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:.15});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

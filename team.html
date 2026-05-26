@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Studio | Le Ali del Cambiamento</title>
+<style>
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-Lt.otf') format('opentype');font-weight:300;font-style:normal}
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-Reg.otf') format('opentype');font-weight:400;font-style:normal}
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-Bd.otf') format('opentype');font-weight:700;font-style:normal}
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-It.otf') format('opentype');font-weight:400;font-style:italic}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Light.ttf') format('truetype');font-weight:300;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Regular.ttf') format('truetype');font-weight:400;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Medium.ttf') format('truetype');font-weight:500;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Bold.ttf') format('truetype');font-weight:700;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Italic.ttf') format('truetype');font-weight:400;font-style:italic}
+@font-face{font-family:'LS Harsey';src:url('fonts/LS Harsey Script.otf') format('opentype');font-weight:400;font-style:normal}
+:root{
+  --c1:#156D6A;
+  --c2:#C96185;
+  --c3:#569D9B;
+  --c4:#DEEAEA;
+  --c5:#DC90AD;
+  --lt:#F9E9EF;
+  --bg:#FEFDF9;
+  --tx:#2a2a2a;
+  --rd:10px;
+  --fh:'The Seasons',Georgia,serif;
+  --fb:'Montserrat',sans-serif;
+  --fa:'LS Harsey',cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--fb);color:var(--tx);background:var(--bg);overflow-x:hidden}
+h1,h2,h3{font-family:var(--fh);font-weight:400}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(254,253,249,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(21,109,106,.12);padding:0 2rem}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:70px}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-logo img{height:42px;width:auto}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;font-size:.85rem;font-weight:500;color:var(--tx);letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--c1)}
+.nav-links a.active{border-bottom:2px solid var(--c2);padding-bottom:2px}
+section{padding:6rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-family:var(--fa);font-size:1.1rem;color:var(--c2);display:block;margin-bottom:.5rem}
+h2{font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.3;color:var(--c1);margin-bottom:1.5rem}
+p{line-height:1.85;color:#555;font-size:.95rem}
+.btn{display:inline-block;padding:.9rem 2.2rem;border-radius:50px;text-decoration:none;font-family:var(--fb);font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:all .28s;cursor:pointer;border:none}
+.btn-primary{background:var(--c2);color:#fff}
+.btn-primary:hover{background:#b3506f;transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,97,133,.3)}
+.page-hero{padding:10rem 2rem 6rem;text-align:center;background:linear-gradient(160deg,rgba(21,109,106,.68) 0%,rgba(201,97,133,.45) 100%),url('images/studio-hero.avif') center/cover no-repeat}
+.page-hero-accent{font-family:var(--fa);font-size:1.4rem;color:var(--c5);display:block;margin-bottom:.5rem}
+.page-hero h1{font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:300;color:#fff}
+.page-hero p{font-size:1rem;color:rgba(255,255,255,.85);max-width:560px;margin:.9rem auto 0;font-style:italic;line-height:1.8}
+.pattern-bg{background-color:var(--c4);background-image:radial-gradient(circle,rgba(21,109,106,.12) 1px,transparent 1px);background-size:24px 24px}
+.pattern-rosa{background-color:var(--lt);background-image:radial-gradient(circle,rgba(201,97,133,.1) 1px,transparent 1px);background-size:24px 24px}
+.profile-section{background:var(--bg)}
+.profile-grid{display:grid;grid-template-columns:380px 1fr;gap:5rem;align-items:start}
+.profile-img-wrap{position:relative;flex-shrink:0}
+.profile-img-wrap img.main{width:100%;border-radius:var(--rd);display:block;box-shadow:0 24px 64px rgba(21,109,106,.15)}
+.profile-img-accent{position:absolute;bottom:-1.5rem;right:-1.5rem;width:130px;height:130px;border-radius:50%;object-fit:cover;border:4px solid var(--bg);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.profile-name{font-family:var(--fh);font-size:2rem;font-weight:400;color:var(--c1);margin-bottom:.25rem}
+.profile-role{font-family:var(--fa);font-size:1.15rem;color:var(--c2);display:block;margin-bottom:1.5rem}
+.profile-bio p{margin-bottom:1.1rem}
+.cert-section{padding:6rem 2rem}
+.cert-header{text-align:center;max-width:560px;margin:0 auto 3.5rem}
+.cert-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.cert-card{padding:2rem;border-radius:var(--rd);background:#fff;border:1px solid rgba(21,109,106,.1);text-align:center;transition:all .3s}
+.cert-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(21,109,106,.1)}
+.cert-icon{font-family:var(--fa);font-size:1.8rem;color:var(--c2);display:block;margin-bottom:.75rem}
+.cert-card h3{font-family:var(--fh);font-size:1rem;color:var(--c1);margin-bottom:.5rem;font-weight:400}
+.cert-card p{font-size:.82rem;color:#888;line-height:1.6}
+.info-section{padding:5rem 2rem}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.info-card{padding:2.5rem;border-radius:var(--rd);text-align:center;position:relative;overflow:hidden}
+.info-card.ottanio{background:var(--c1);color:#fff}
+.info-card.rosa{background:var(--c2);color:#fff}
+.info-card.verde{background:var(--c4)}
+.info-card h3{font-family:var(--fh);font-size:1.1rem;margin-bottom:.75rem;font-weight:400}
+.info-card.ottanio h3,.info-card.rosa h3{color:#fff}
+.info-card.verde h3{color:var(--c1)}
+.info-card p{font-size:.9rem;line-height:1.7;text-align:center;word-break:break-word}
+.info-card.ottanio p,.info-card.rosa p{color:rgba(255,255,255,.85)}
+.info-card.verde p{color:#555}
+.info-card a{color:inherit}
+footer{background:var(--tx);color:rgba(255,255,255,.7);padding:3rem 2rem;text-align:center}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-logo{margin-bottom:1rem}
+.footer-logo img{height:36px;opacity:.85}
+.footer-links{display:flex;gap:2rem;justify-content:center;list-style:none;margin:1rem 0;flex-wrap:wrap}
+.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.82rem;letter-spacing:.05em;transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:.78rem;color:#fff;margin-top:1rem}
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:none}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .profile-grid{grid-template-columns:1fr}
+  .cert-grid{grid-template-columns:1fr 1fr}
+  .info-grid{grid-template-columns:1fr}
+  .profile-img-accent{width:90px;height:90px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="https://static.wixstatic.com/media/d2e1e0_8a4f739d2e27484dbca918e6e251e385~mv2.png/v1/fill/w_417,h_82,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/d2e1e0_8a4f739d2e27484dbca918e6e251e385~mv2.png" alt="Le Ali del Cambiamento">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi sono</a></li>
+      <li><a href="servizi.html">Servizi</a></li>
+      <li><a href="team.html" class="active">Studio</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <span class="page-hero-accent">Lo spazio del cambiamento</span>
+  <h1>Lo Studio</h1>
+  <p>Un luogo di incontro, ascolto e trasformazione<br>nel cuore del Ticino.</p>
+</div>
+
+<section class="profile-section">
+  <div class="container">
+    <div class="profile-grid fade-up">
+      <div class="profile-img-wrap">
+        <img class="main" src="https://static.wixstatic.com/media/6950bf_da12d926c0044dcd81adc4fa370ee0ce~mv2.jpg/v1/fill/w_1200,h_800,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/mia%20foto%205_edited.jpg" alt="Laura Lepori">
+        <img class="profile-img-accent" src="https://d8j0ntlcm91z4.cloudfront.net/user_3EDw5qmardIfuEPJwyYr4uyUEvi/hf_20260525_220423_0174f471-246b-4e88-8ef2-7bc129dcbde4.png" alt="">
+      </div>
+      <div class="profile-bio">
+        <span class="section-label">La guida</span>
+        <p class="profile-name">Laura Lepori</p>
+        <span class="profile-role">Guida Olistica &amp; Terapeuta Olistica</span>
+        <p>Laura lavora con passione e dedizione nel campo del benessere olistico da anni. La sua formazione abbraccia diverse discipline, ognuna delle quali contribuisce a un approccio completo e integrato alla crescita personale.</p>
+        <p>Le sedute si tengono in uno spazio accogliente e riservato a Tesserete, progettato per favorire il rilassamento e la presenza. Sono disponibili sessioni in presenza e, su richiesta, a distanza.</p>
+        <a href="contatti.html" class="btn btn-primary" style="margin-top:1rem">Prenota una seduta</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cert-section pattern-bg">
+  <div class="container">
+    <div class="cert-header fade-up">
+      <span class="section-label">Formazione</span>
+      <h2>Certificazioni e specializzazioni</h2>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card fade-up">
+        <span class="cert-icon">&#9670;</span>
+        <h3>Numerologia Esoterica</h3>
+        <p>Formazione avanzata nell'analisi numerologica applicata alla crescita personale e spirituale.</p>
+      </div>
+      <div class="cert-card fade-up">
+        <span class="cert-icon">&#9670;</span>
+        <h3>Aura-Soma</h3>
+        <p>Consulente certificata del sistema Aura-Soma, terapia con colori viventi per l'equilibrio dell'anima.</p>
+      </div>
+      <div class="cert-card fade-up">
+        <span class="cert-icon">&#9670;</span>
+        <h3>Soul / Body Alignment</h3>
+        <p>Praticante del metodo Soul/Body Consciousness Alignment per l'integrazione energetica corpo-mente.</p>
+      </div>
+      <div class="cert-card fade-up">
+        <span class="cert-icon">&#9670;</span>
+        <h3>Tarocchi</h3>
+        <p>Lettura dei tarocchi come strumento di consapevolezza e chiarimento interiore, non di divinazione.</p>
+      </div>
+      <div class="cert-card fade-up">
+        <span class="cert-icon">&#9670;</span>
+        <h3>Medianit&agrave;</h3>
+        <p>Sviluppo e coltivazione delle capacit&agrave; medianiche come canale di connessione e comprensione profonda.</p>
+      </div>
+      <div class="cert-card fade-up">
+        <span class="cert-icon">&#9670;</span>
+        <h3>Formazione Continua</h3>
+        <p>Aggiornamento costante attraverso seminari, ritiri e percorsi di crescita personale e professionale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="info-section">
+  <div class="container">
+    <div class="info-grid fade-up">
+      <div class="info-card ottanio">
+        <h3>Indirizzo</h3>
+        <p>Studio Olistico<br>6950 Tesserete<br>Ticino, Svizzera</p>
+      </div>
+      <div class="info-card rosa">
+        <h3>Contatti</h3>
+        <p>
+          <a href="tel:+41799686618">+41 79 968 66 18</a><br>
+          <a href="mailto:studio@lealidelcambiamento.com">studio@lealidelcambiamento.com</a>
+        </p>
+      </div>
+      <div class="info-card verde">
+        <h3>Modalit&agrave; Sedute</h3>
+        <p>Sedute individuali in presenza<br>Consulenze a distanza disponibili<br>Su appuntamento</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="images/logo-white.png" alt="Le Ali del Cambiamento">
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi sono</a></li>
+      <li><a href="servizi.html">Servizi</a></li>
+      <li><a href="team.html">Studio</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+    <p class="footer-copy">Studio Olistico Le Ali del Cambiamento &middot; Tesserete, Ticino &middot; studio@lealidelcambiamento.com</p>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:.15});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

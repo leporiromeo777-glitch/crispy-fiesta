@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Servizi | Le Ali del Cambiamento</title>
+<style>
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-Lt.otf') format('opentype');font-weight:300;font-style:normal}
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-Reg.otf') format('opentype');font-weight:400;font-style:normal}
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-Bd.otf') format('opentype');font-weight:700;font-style:normal}
+@font-face{font-family:'The Seasons';src:url('fonts/TheSeasons-It.otf') format('opentype');font-weight:400;font-style:italic}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Light.ttf') format('truetype');font-weight:300;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Regular.ttf') format('truetype');font-weight:400;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Medium.ttf') format('truetype');font-weight:500;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-SemiBold.ttf') format('truetype');font-weight:600;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Bold.ttf') format('truetype');font-weight:700;font-style:normal}
+@font-face{font-family:'Montserrat';src:url('fonts/Montserrat-Italic.ttf') format('truetype');font-weight:400;font-style:italic}
+@font-face{font-family:'LS Harsey';src:url('fonts/LS Harsey Script.otf') format('opentype');font-weight:400;font-style:normal}
+:root{
+  --c1:#156D6A;
+  --c2:#C96185;
+  --c3:#569D9B;
+  --c4:#DEEAEA;
+  --c5:#DC90AD;
+  --lt:#F9E9EF;
+  --bg:#FEFDF9;
+  --tx:#2a2a2a;
+  --rd:10px;
+  --fh:'The Seasons',Georgia,serif;
+  --fb:'Montserrat',sans-serif;
+  --fa:'LS Harsey',cursive;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--fb);color:var(--tx);background:var(--bg);overflow-x:hidden}
+h1,h2,h3{font-family:var(--fh);font-weight:400}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(254,253,249,.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(21,109,106,.12);padding:0 2rem}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:70px}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-logo img{height:42px;width:auto}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;font-size:.85rem;font-weight:500;color:var(--tx);letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--c1)}
+.nav-links a.active{border-bottom:2px solid var(--c2);padding-bottom:2px}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-family:var(--fa);font-size:1.1rem;color:var(--c2);display:block;margin-bottom:.5rem}
+p{line-height:1.85;color:#555;font-size:.95rem}
+.btn{display:inline-block;padding:.9rem 2.2rem;border-radius:50px;text-decoration:none;font-family:var(--fb);font-size:.85rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:all .28s;cursor:pointer;border:none}
+.btn-primary{background:var(--c2);color:#fff}
+.btn-primary:hover{background:#b3506f;transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,97,133,.3)}
+.page-hero{padding:10rem 2rem 6rem;text-align:center;background:linear-gradient(160deg,var(--c4) 0%,var(--lt) 100%)}
+.page-hero-accent{font-family:var(--fa);font-size:1.4rem;color:var(--c2);display:block;margin-bottom:.5rem}
+.page-hero h1{font-size:clamp(2.4rem,4.5vw,3.6rem);font-weight:300;color:var(--c1)}
+.page-hero p{font-size:1rem;color:#666;max-width:580px;margin:.9rem auto 0;font-style:italic;line-height:1.8}
+.pattern-bg{background-color:var(--c4);background-image:radial-gradient(circle,rgba(21,109,106,.12) 1px,transparent 1px);background-size:24px 24px}
+.pattern-rosa{background-color:var(--lt);background-image:radial-gradient(circle,rgba(201,97,133,.1) 1px,transparent 1px);background-size:24px 24px}
+.service-block{padding:7rem 2rem}
+.service-block:nth-child(even){background:var(--bg)}
+.service-block:nth-child(odd){background:#fff}
+.service-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.service-layout.reverse{direction:rtl}
+.service-layout.reverse > *{direction:ltr}
+.service-img{border-radius:var(--rd);overflow:hidden;box-shadow:0 20px 56px rgba(21,109,106,.12)}
+.service-img img{width:100%;height:420px;object-fit:cover;display:block}
+.service-number{font-family:var(--fa);font-size:3rem;color:var(--c2);opacity:.25;display:block;line-height:1;margin-bottom:.25rem}
+.service-content h2{font-size:clamp(1.8rem,2.8vw,2.4rem);color:var(--c1);margin-bottom:1.25rem}
+.service-content p{margin-bottom:1.25rem}
+.service-quote{border-left:3px solid var(--c2);padding-left:1.25rem;margin:1.75rem 0;font-family:var(--fh);font-size:1.05rem;font-style:italic;color:var(--c1);line-height:1.6}
+.benefits{list-style:none;margin-top:1.5rem}
+.benefits li{padding:.5rem 0;font-size:.9rem;display:flex;align-items:flex-start;gap:.75rem;color:#555}
+.benefits li::before{content:'&#9670;';color:var(--c2);font-size:.6rem;margin-top:.35rem;flex-shrink:0}
+.cta-section{text-align:center;padding:6rem 2rem;background:var(--c1);color:#fff}
+.cta-section h2{font-size:clamp(1.8rem,3vw,2.6rem);color:#fff;margin-bottom:1rem}
+.cta-section p{opacity:.85;max-width:520px;margin:.75rem auto 2.5rem;line-height:1.75;font-weight:300;font-size:.95rem}
+.btn-cta{background:#fff;color:var(--c1);font-weight:700}
+.btn-cta:hover{background:var(--lt);transform:translateY(-2px)}
+footer{background:var(--tx);color:rgba(255,255,255,.7);padding:3rem 2rem;text-align:center}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-logo{margin-bottom:1rem}
+.footer-logo img{height:36px;opacity:.85}
+.footer-links{display:flex;gap:2rem;justify-content:center;list-style:none;margin:1rem 0;flex-wrap:wrap}
+.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.82rem;letter-spacing:.05em;transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-copy{font-size:.78rem;color:#fff;margin-top:1rem}
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.fade-up.visible{opacity:1;transform:none}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .service-layout,.service-layout.reverse{grid-template-columns:1fr;direction:ltr}
+  .service-img img{height:280px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="https://static.wixstatic.com/media/d2e1e0_8a4f739d2e27484dbca918e6e251e385~mv2.png/v1/fill/w_417,h_82,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/d2e1e0_8a4f739d2e27484dbca918e6e251e385~mv2.png" alt="Le Ali del Cambiamento">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi sono</a></li>
+      <li><a href="servizi.html" class="active">Servizi</a></li>
+      <li><a href="team.html">Studio</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <span class="page-hero-accent">I percorsi</span>
+  <h1>I Servizi</h1>
+  <p>Ogni strumento &egrave; un linguaggio diverso per parlare con la tua anima.<br>Scopri quello che risuona con te.</p>
+</div>
+
+<!-- Numerologia -->
+<div class="service-block">
+  <div class="container">
+    <div class="service-layout fade-up">
+      <div class="service-img">
+        <img src="images/numerologia.avif" alt="Numerologia Esoterica">
+      </div>
+      <div class="service-content">
+        <span class="service-number">01</span>
+        <span class="section-label">Lettura del s&eacute;</span>
+        <h2>Numerologia Esoterica</h2>
+        <p>La Numerologia Esoterica usa i numeri del tuo nome e della tua data di nascita come chiave per comprendere chi sei davvero. Non si tratta di previsioni, ma di un mappa dell'anima: i tuoi doni naturali, le sfide ricorrenti, il tuo cammino di vita.</p>
+        <p>Una seduta di Numerologia Esoterica &egrave; un'esperienza profonda di autoconoscenza. Riceverai una lettura completa e personalizzata, con riflessioni pratiche su come integrare queste consapevolezze nella tua vita quotidiana.</p>
+        <blockquote class="service-quote">
+          "I numeri non mentono. Sono lo specchio pi&ugrave; fedele della tua essenza."
+        </blockquote>
+        <ul class="benefits">
+          <li>Comprensione del tuo numero di vita e del tuo scopo</li>
+          <li>Analisi dei cicli personali e dei momenti di transizione</li>
+          <li>Riconoscimento dei pattern ricorrenti nella tua storia</li>
+          <li>Strumenti pratici per navigare le tue sfide con consapevolezza</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Aura-Soma -->
+<div class="service-block">
+  <div class="container">
+    <div class="service-layout reverse fade-up">
+      <div class="service-img">
+        <img src="https://static.wixstatic.com/media/6950bf_fea2d040d415401fa5f8bdbc7111192c~mv2.jpg/v1/fill/w_1200,h_800,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/6950bf_fea2d040d415401fa5f8bdbc7111192c~mv2.jpg" alt="Aura-Soma">
+      </div>
+      <div class="service-content">
+        <span class="service-number">02</span>
+        <span class="section-label">Terapia dei colori</span>
+        <h2>Aura-Soma</h2>
+        <p>L'Aura-Soma &egrave; un sistema unico di colori viventi: bottiglie bicolori contenenti oli vegetali, cristalli e acqua di sorgente. Scegliere le proprie bottiglie non &egrave; un atto razionale — &egrave; il linguaggio dell'anima che emerge spontaneamente.</p>
+        <p>Le bottiglie che scegli rivelano strati profondi della tua personalit&agrave;: ci&ograve; che sei, ci&ograve; che stai attraversando e le risorse interiori che hai a disposizione. La consultazione &egrave; un dialogo tra te e il tuo essere pi&ugrave; profondo.</p>
+        <blockquote class="service-quote">
+          "I colori che ti attirano dicono ci&ograve; che le parole a volte non riescono ad esprimere."
+        </blockquote>
+        <ul class="benefits">
+          <li>Lettura delle quattro bottiglie selezionate</li>
+          <li>Esplorazione dei temi profondi del tuo percorso</li>
+          <li>Applicazione degli oli come pratica quotidiana di cura</li>
+          <li>Connessione con le tue risorse interiori e il tuo potenziale</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Soul/Body -->
+<div class="service-block pattern-bg">
+  <div class="container">
+    <div class="service-layout fade-up">
+      <div class="service-img">
+        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3EDw5qmardIfuEPJwyYr4uyUEvi/hf_20260525_220419_0652f3e4-9e76-4c8d-9ef4-56e31b4aaea0.png" alt="Soul Body Alignment">
+      </div>
+      <div class="service-content">
+        <span class="service-number">03</span>
+        <span class="section-label">Integrazione energetica</span>
+        <h2>Soul / Body Consciousness Alignment</h2>
+        <p>Il Soul/Body Consciousness Alignment &egrave; un metodo che lavora all'intersezione tra l'energia dell'anima e la realt&agrave; del corpo fisico. Attraverso tecniche specifiche, si sciolgono i blocchi energetici che impediscono l'armonia tra ci&ograve; che siamo e ci&ograve; che viviamo.</p>
+        <p>Questo lavoro agisce in modo sottile ma profondo: molti clienti riportano una sensazione di leggerezza, maggiore chiarezza mentale e un ritrovato senso di allineamento con s&eacute; stessi gi&agrave; dopo le prime sedute.</p>
+        <blockquote class="service-quote">
+          "Quando anima e corpo parlano lo stesso linguaggio, la vita scorre con meno sforzo."
+        </blockquote>
+        <ul class="benefits">
+          <li>Identificazione e rilascio dei blocchi energetici</li>
+          <li>Maggiore coerenza tra intenzioni e azioni quotidiane</li>
+          <li>Riduzione della fatica emotiva e della tensione interiore</li>
+          <li>Riconnessione con il corpo come alleato, non come ostacolo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Tarocchi -->
+<div class="service-block">
+  <div class="container">
+    <div class="service-layout reverse fade-up">
+      <div class="service-img">
+        <img src="images/tarocchi.avif" alt="Tarocchi">
+      </div>
+      <div class="service-content">
+        <span class="service-number">04</span>
+        <span class="section-label">Specchio del presente</span>
+        <h2>Tarocchi</h2>
+        <p>I Tarocchi non predicono il futuro: riflettono il presente. Sono uno strumento simbolico potente che aiuta a fare luce sulle energie in gioco nella tua vita, le dinamiche invisibili, le risorse disponibili e le azioni possibili.</p>
+        <p>Una lettura dei Tarocchi con Laura &egrave; uno spazio di riflessione profonda. Non si tratta di magia, ma di un dialogo tra l'immagine archetipica e la tua esperienza interiore, guidato con cura e rispetto.</p>
+        <blockquote class="service-quote">
+          "I Tarocchi non dicono ci&ograve; che accadr&agrave;. Illuminano ci&ograve; che gi&agrave; sai."
+        </blockquote>
+        <ul class="benefits">
+          <li>Chiarezza sulle situazioni in evoluzione nella tua vita</li>
+          <li>Accesso a prospettive nuove su sfide ricorrenti</li>
+          <li>Riconoscimento delle energie che ti sostengono e di quelle da integrare</li>
+          <li>Spazio sicuro per esplorare domande profonde senza giudizio</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="cta-section">
+  <div class="container fade-up">
+    <h2>Non sai da dove iniziare?</h2>
+    <p>Scrivimi: insieme troviamo il percorso pi&ugrave; adatto a te. Una chiacchierata conoscitiva &egrave; sempre gratuita e senza impegno.</p>
+    <a href="contatti.html" class="btn btn-cta">Contattami ora</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="images/logo-white.png" alt="Le Ali del Cambiamento">
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="chi-siamo.html">Chi sono</a></li>
+      <li><a href="servizi.html">Servizi</a></li>
+      <li><a href="team.html">Studio</a></li>
+      <li><a href="contatti.html">Contatti</a></li>
+    </ul>
+    <p class="footer-copy">Studio Olistico Le Ali del Cambiamento &middot; Tesserete, Ticino &middot; studio@lealidelcambiamento.com</p>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})
+},{threshold:.12});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
