@@ -1,0 +1,4 @@
+{
+  "_comment": "Deduplicazione — place_id Google Maps già trovati. Non rimuovere entries.",
+  "place_ids": []
+}
