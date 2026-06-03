@@ -337,12 +337,49 @@ def main():
     print(f"\n✅ Output: {out_file}")
 
     # Aggiorna memoria
+    total_seen_before = len(load_seen_ids())
     save_seen_ids(load_seen_ids(), [b["place_id"] for b in businesses])
-    print(f"💾 Memoria aggiornata — totale visti: {len(load_seen_ids())}")
+    total_seen_after = len(load_seen_ids())
+    print(f"💾 Memoria aggiornata — totale visti: {total_seen_after}")
 
     # Salva raw in .tmp
     raw_file = TMP_DIR / f"raw_{run_date}.json"
     raw_file.write_text(json.dumps(businesses, indent=2, ensure_ascii=False))
+
+    # --- Rapporto per /riassunto_routine ---
+    report = {
+        "run_date": run_date,
+        "run_timestamp": __import__("datetime").datetime.now().isoformat(),
+        "routine": "Google Maps Scout — Ticino",
+        "trigger": "Lunedi 07:00 CET",
+        "output_file": str(out_file),
+        "stats": {
+            "leads_trovati": len(businesses),
+            "target": TARGET_COUNT,
+            "query_eseguite": tried_queries,
+            "business_saltati_dedup": total_seen_before,
+            "totale_business_in_memoria": total_seen_after,
+            "senza_sito": sum(1 for b in businesses if b["website_status"] == "assente"),
+            "sito_broken": sum(1 for b in businesses if b["website_status"] == "broken"),
+            "sito_morto": sum(1 for b in businesses if b["website_status"] == "morto"),
+            "sito_parcheggiato": sum(1 for b in businesses if b["website_status"] == "parcheggiato"),
+        },
+        "leads": [
+            {
+                "name": b["name"],
+                "sector": b["sector"],
+                "city": b["city"],
+                "phone": b["phone"],
+                "website_status": b["website_status"],
+                "email_subject": b["email_subject"],
+            }
+            for b in businesses
+        ],
+        "errors": [],
+    }
+    report_file = BASE_DIR / "memory" / "last_run_report.json"
+    report_file.write_text(json.dumps(report, indent=2, ensure_ascii=False))
+    print(f"📄 Rapporto scritto: {report_file}")
 
     print(f"\n🎯 Trovati {len(businesses)}/{TARGET_COUNT} business idonei in {tried_queries} query.")
     return out_file

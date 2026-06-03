@@ -1,0 +1,101 @@
+{
+  "run_date": "2026-06-03",
+  "run_timestamp": "2026-06-03T22:43:04.273773",
+  "routine": "Google Maps Scout — Ticino",
+  "trigger": "Lunedi 07:00 CET",
+  "output_file": "/home/user/crispy-fiesta/google-maps-scout/output/leads_2026-06-03.html",
+  "stats": {
+    "leads_trovati": 10,
+    "target": 10,
+    "query_eseguite": 2,
+    "business_saltati_dedup": 20,
+    "totale_business_in_memoria": 30,
+    "senza_sito": 3,
+    "sito_broken": 7,
+    "sito_morto": 0,
+    "sito_parcheggiato": 0
+  },
+  "leads": [
+    {
+      "name": "La Botteguccia",
+      "sector": "Negozio Abbigliamento",
+      "city": "6500 Bellinzona",
+      "phone": "091 826 22 33",
+      "website_status": "broken",
+      "email_subject": "Sito web per La Botteguccia — proposta gratuita"
+    },
+    {
+      "name": "Boutique Ylenia",
+      "sector": "Negozio Abbigliamento",
+      "city": "6500 Bellinzona",
+      "phone": "091 835 41 58",
+      "website_status": "broken",
+      "email_subject": "Sito web per Boutique Ylenia — proposta gratuita"
+    },
+    {
+      "name": "Intersport Grossi - Bellinzona",
+      "sector": "Negozio Abbigliamento",
+      "city": "6500 Bellinzona",
+      "phone": "091 825 51 31",
+      "website_status": "broken",
+      "email_subject": "Sito web per Intersport Grossi - Bellinzona — proposta gratuita"
+    },
+    {
+      "name": "MANOR Bellinzona",
+      "sector": "Negozio Abbigliamento",
+      "city": "6500 Bellinzona",
+      "phone": "091 823 86 99",
+      "website_status": "broken",
+      "email_subject": "Sito web per MANOR Bellinzona — proposta gratuita"
+    },
+    {
+      "name": "Mercato del Sabato di Bellinzona",
+      "sector": "Commercio locale",
+      "city": "6500 Bellinzona",
+      "phone": null,
+      "website_status": "broken",
+      "email_subject": "Sito web per Mercato del Sabato di Bellinzona — proposta gratuita"
+    },
+    {
+      "name": "Tigotà",
+      "sector": "Negozio Abbigliamento",
+      "city": "6500 Bellinzona",
+      "phone": "091 829 36 96",
+      "website_status": "assente",
+      "email_subject": "Sito web per Tigotà — proposta gratuita"
+    },
+    {
+      "name": "Oltree di Susi Zonca",
+      "sector": "Negozio Scarpe",
+      "city": "6500 Bellinzona",
+      "phone": "091 825 12 62",
+      "website_status": "assente",
+      "email_subject": "Sito web per Oltree di Susi Zonca — proposta gratuita"
+    },
+    {
+      "name": "Boutique Tally Weijl",
+      "sector": "Negozio Abbigliamento",
+      "city": "6500 Bellinzona",
+      "phone": "091 826 43 53",
+      "website_status": "broken",
+      "email_subject": "Sito web per Boutique Tally Weijl — proposta gratuita"
+    },
+    {
+      "name": "Tezenis",
+      "sector": "Negozio Abbigliamento",
+      "city": "6500 Bellinzona",
+      "phone": "091 825 07 39",
+      "website_status": "broken",
+      "email_subject": "Sito web per Tezenis — proposta gratuita"
+    },
+    {
+      "name": "Boutique La Corte",
+      "sector": "Negozio Abbigliamento",
+      "city": "6500 Bellinzona",
+      "phone": "079 794 93 64",
+      "website_status": "assente",
+      "email_subject": "Sito web per Boutique La Corte — proposta gratuita"
+    }
+  ],
+  "errors": []
+}
