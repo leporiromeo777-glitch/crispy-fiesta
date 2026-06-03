@@ -1,4 +1,14 @@
 {
-  "_comment": "Deduplicazione — place_id Google Maps già trovati. Non rimuovere entries.",
-  "place_ids": []
+  "place_ids": [
+    "ChIJKagkAwAthEcRsYr5njlvdUc",
+    "ChIJO3O_TvIthEcR7KjTo_J6d0o",
+    "ChIJ4wPgAI0thEcRr_gEAyVHn1I",
+    "ChIJNwlAHA8thEcRCfqD5jCOGMo",
+    "ChIJ7Whheo4thEcR-KyI5u-z2OQ",
+    "ChIJiR12dKMthEcRH5cjGDSq9rs",
+    "ChIJ4d6ZZ44thEcRq2CPOxaewcI",
+    "ChIJgTtogI4thEcRKPYH2SQQoAU",
+    "ChIJuQCV4JEthEcRJMc1rSlr1WU",
+    "ChIJoZU3o5wthEcR5dP5X6SueDg"
+  ]
 }

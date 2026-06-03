@@ -87,10 +87,10 @@ Ogni domenica alle 7:00, trovare automaticamente 10 business in Ticino **senza s
 | Fase | Stato | Note |
 |------|-------|------|
 | B — Blueprint | ✅ | 5 domande discovery completate |
-| L — Link | ⏳ | Verifica Google Maps API + Zapier |
-| A — Architect | ⏳ | SOP ricerca, verifica sito, dedup, HTML |
-| S — Stylize | ⏳ | Template HTML con badge stato sito |
-| T — Trigger | ⏳ | Zapier webhook → script domenicale |
+| L — Link | ✅ | Places API legacy operativa, probe OK |
+| A — Architect | ✅ | 4 SOP scritte + zapier_setup.md |
+| S — Stylize | ✅ | HTML archiviato per data, tabella filtrabile, badge, Gmail |
+| T — Trigger | ✅ | main.py testato (10/10), webhook.py pronto, Zapier istruzioni |
 
 ---
 
