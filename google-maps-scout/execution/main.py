@@ -8,11 +8,11 @@ import json
 import os
 import sys
 import time
-import urllib.request
 import urllib.parse
-import urllib.error
 from datetime import date
 from pathlib import Path
+
+import requests
 
 # --- Paths ---
 BASE_DIR = Path(__file__).parent.parent
@@ -69,14 +69,14 @@ def save_seen_ids(existing: set, new_ids: list):
 
 
 def gmaps_get(url):
-    with urllib.request.urlopen(url, timeout=10) as r:
-        return json.loads(r.read())
+    r = requests.get(url, timeout=10)
+    r.raise_for_status()
+    return r.json()
 
 
 def text_search(query, api_key):
-    params = urllib.parse.urlencode({"query": query, "key": api_key, "language": "it"})
-    url = f"https://maps.googleapis.com/maps/api/place/textsearch/json?{params}"
-    data = gmaps_get(url)
+    params = {"query": query, "key": api_key, "language": "it"}
+    data = gmaps_get("https://maps.googleapis.com/maps/api/place/textsearch/json?" + urllib.parse.urlencode(params))
     if data.get("status") not in ("OK", "ZERO_RESULTS"):
         print(f"  [WARN] textsearch status: {data.get('status')} — {data.get('error_message','')}")
     return data.get("results", [])
@@ -84,9 +84,8 @@ def text_search(query, api_key):
 
 def place_details(place_id, api_key):
     fields = "name,place_id,formatted_address,formatted_phone_number,website,types,editorial_summary"
-    params = urllib.parse.urlencode({"place_id": place_id, "fields": fields, "key": api_key, "language": "it"})
-    url = f"https://maps.googleapis.com/maps/api/place/details/json?{params}"
-    data = gmaps_get(url)
+    params = {"place_id": place_id, "fields": fields, "key": api_key, "language": "it"}
+    data = gmaps_get("https://maps.googleapis.com/maps/api/place/details/json?" + urllib.parse.urlencode(params))
     return data.get("result", {})
 
 
@@ -94,19 +93,18 @@ def check_website(url):
     if not url:
         return "assente"
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=5) as r:
-            body = r.read(2000).decode("utf-8", errors="ignore").lower()
-            if r.status >= 400:
-                return "broken"
-            parking_signals = ["domain for sale", "buy this domain", "parked domain", "coming soon", "under construction"]
-            if any(s in body for s in parking_signals):
-                return "parcheggiato"
-            if len(body) < 500:
-                return "quasi_vuoto"
-            return "attivo"
-    except urllib.error.HTTPError as e:
-        return "broken" if e.code >= 400 else "morto"
+        r = requests.get(url, timeout=5, headers={"User-Agent": "Mozilla/5.0"}, allow_redirects=True)
+        if r.status_code >= 400:
+            return "broken"
+        body = r.text[:2000].lower()
+        parking_signals = ["domain for sale", "buy this domain", "parked domain", "coming soon", "under construction"]
+        if any(s in body for s in parking_signals):
+            return "parcheggiato"
+        if len(body) < 500:
+            return "quasi_vuoto"
+        return "attivo"
+    except requests.exceptions.HTTPError as e:
+        return "broken" if e.response and e.response.status_code >= 400 else "morto"
     except Exception:
         return "morto"
 

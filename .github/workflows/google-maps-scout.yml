@@ -1,0 +1,39 @@
+name: Google Maps Scout — Domenicale Ticino
+
+on:
+  schedule:
+    - cron: '0 7 * * 0'   # ogni domenica alle 07:00 UTC (= 08:00/09:00 CET)
+  workflow_dispatch:        # permette run manuale dal pannello GitHub Actions
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write       # serve per fare commit dell'HTML generato
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run scout
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+        run: python google-maps-scout/execution/main.py
+
+      - name: Commit output HTML e aggiorna memoria
+        run: |
+          git config user.name "Google Maps Scout Bot"
+          git config user.email "bot@weblinkx.ch"
+          git add google-maps-scout/output/ google-maps-scout/memory/businesses_seen.json
+          git diff --cached --quiet || git commit -m "scout: leads $(date +%Y-%m-%d)"
+          git push
