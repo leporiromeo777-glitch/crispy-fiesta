@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attività Ticinesi senza Sito Web — Google Maps</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f0f4f8;
+      color: #1a202c;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      max-width: 1100px;
+      margin: 0 auto 2rem;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #2d3748;
+      margin-bottom: 0.4rem;
+    }
+
+    .subtitle {
+      color: #718096;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: #ebf8ff;
+      color: #2b6cb0;
+      border: 1px solid #bee3f8;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.2rem 0.65rem;
+    }
+
+    .controls {
+      max-width: 1100px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 220px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      background: white;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-box input:focus { border-color: #4299e1; }
+
+    .search-box svg {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #a0aec0;
+    }
+
+    select {
+      padding: 0.6rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      background: white;
+      outline: none;
+      cursor: pointer;
+      color: #2d3748;
+    }
+
+    .count {
+      color: #718096;
+      font-size: 0.85rem;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .table-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    thead {
+      background: #f7fafc;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    th {
+      padding: 0.85rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #4a5568;
+      cursor: pointer;
+      user-select: none;
+      white-space: nowrap;
+    }
+
+    th:hover { color: #2b6cb0; }
+
+    th .sort-icon {
+      display: inline-block;
+      margin-left: 4px;
+      opacity: 0.4;
+      font-size: 0.7rem;
+    }
+
+    th.asc .sort-icon::after { content: '▲'; opacity: 1; }
+    th.desc .sort-icon::after { content: '▼'; opacity: 1; }
+    th:not(.asc):not(.desc) .sort-icon::after { content: '⇅'; }
+
+    tbody tr {
+      border-bottom: 1px solid #f0f4f8;
+      transition: background 0.15s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #f7fafc; }
+
+    td {
+      padding: 0.9rem 1rem;
+      vertical-align: middle;
+    }
+
+    .name {
+      font-weight: 600;
+      color: #2d3748;
+    }
+
+    .maps-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      color: #3182ce;
+      text-decoration: none;
+      font-size: 0.8rem;
+      margin-top: 0.2rem;
+    }
+
+    .maps-link:hover { text-decoration: underline; }
+
+    .category-pill {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: #edf2f7;
+      color: #4a5568;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      white-space: nowrap;
+    }
+
+    .stars {
+      color: #f6ad55;
+      font-size: 0.85rem;
+    }
+
+    .score {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #2d3748;
+    }
+
+    .reviews {
+      color: #718096;
+      font-size: 0.8rem;
+    }
+
+    .no-website {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: #fff5f5;
+      color: #c53030;
+      border: 1px solid #fed7d7;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+    }
+
+    .phone {
+      font-family: monospace;
+      color: #2d3748;
+      font-size: 0.87rem;
+    }
+
+    .no-phone { color: #a0aec0; font-size: 0.8rem; font-style: italic; }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #a0aec0;
+    }
+
+    footer {
+      max-width: 1100px;
+      margin: 1.5rem auto 0;
+      font-size: 0.8rem;
+      color: #a0aec0;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      th:nth-child(4), td:nth-child(4),
+      th:nth-child(5), td:nth-child(5) { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Attività Ticinesi senza Sito Web</h1>
+  <p class="subtitle">
+    Fonte: Google Maps via Apify Scraper &nbsp;·&nbsp;
+    <span class="badge">&#9679; Nessun sito web verificato</span>
+  </p>
+</header>
+
+<div class="controls">
+  <div class="search-box">
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </svg>
+    <input type="text" id="searchInput" placeholder="Cerca per nome, città, categoria…">
+  </div>
+
+  <select id="categoryFilter">
+    <option value="">Tutte le categorie</option>
+  </select>
+
+  <select id="ratingFilter">
+    <option value="">Tutti i rating</option>
+    <option value="4">4+ stelle</option>
+    <option value="3">3+ stelle</option>
+  </select>
+
+  <span class="count" id="countLabel"></span>
+</div>
+
+<div class="table-wrap">
+  <table id="mainTable">
+    <thead>
+      <tr>
+        <th data-col="name">Nome <span class="sort-icon"></span></th>
+        <th data-col="category">Categoria <span class="sort-icon"></span></th>
+        <th data-col="address">Indirizzo <span class="sort-icon"></span></th>
+        <th data-col="phone">Telefono <span class="sort-icon"></span></th>
+        <th data-col="rating">Rating <span class="sort-icon"></span></th>
+        <th>Sito Web</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+  <div class="empty-state" id="emptyState" style="display:none">
+    Nessuna attività trovata con i filtri selezionati.
+  </div>
+</div>
+
+<footer>
+  Dati estratti il 04/06/2026 via Google Maps · Apify compass/crawler-google-places · Filtro: <strong>senza sito web</strong>
+</footer>
+
+<script>
+const DATA = [
+  {
+    name: "Ristorante Val Colla B&B",
+    category: "Ristorante",
+    address: "Via Cantonale 40, 6951 Bogno, Lugano",
+    phone: "+41 91 930 74 76",
+    rating: 4.3,
+    reviews: 23,
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Ristorante%20Val%20Colla%20B%26B&query_place_id=ChIJtTMORdU3hEcR9PauZTXR6PE"
+  },
+  {
+    name: "Grotto del Faggio",
+    category: "Ristorante",
+    address: "Strada di Arla 1, 6968 Lugano",
+    phone: "+41 91 943 22 25",
+    rating: 4.5,
+    reviews: 61,
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Grotto%20del%20Faggio&query_place_id=ChIJAQUyoloxhEcRq-5CEdQW9SY"
+  },
+  {
+    name: "Alpe Pietrarossa",
+    category: "Ristorante",
+    address: "6951 Lugano",
+    phone: null,
+    rating: 4.4,
+    reviews: 27,
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Alpe%20Pietrarossa&query_place_id=ChIJLfyQnfo2hEcRVnMw8AMRyOc"
+  },
+  {
+    name: "6951 Colla-Lugano",
+    category: "Ristorante Familiare",
+    address: "Colla Nucleo 1, 6951 Lugano",
+    phone: null,
+    rating: null,
+    reviews: null,
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=6951%20Colla-Lugano&query_place_id=ChIJIz7vFAA3hEcRkyp5-uH7Pjg"
+  },
+  {
+    name: "Dama's Cafè Bar Lugano",
+    category: "Bar",
+    address: "Via al Fiume 10, Viganello, 6962 Lugano",
+    phone: null,
+    rating: 5.0,
+    reviews: 3,
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Dama%E2%80%99s%20Caf%C3%A8%20bar%20Lugano&query_place_id=ChIJy7RHaxQzhEcRcw-mmFyU070"
+  },
+  {
+    name: "Bar Lo Specchio / Swisslos",
+    category: "Snack Bar",
+    address: "Via S. Carlo 7, 6932 Breganzona, Lugano",
+    phone: "+41 91 966 90 19",
+    rating: 4.1,
+    reviews: 52,
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Bar%20Lo%20Specchio%20%2F%20Swisslos&query_place_id=ChIJGxHpIH4thEcRnzuq8nxmCJQ"
+  },
+  {
+    name: "The Climb",
+    category: "Caffè",
+    address: "Via Maggio 23, 6900 Lugano",
+    phone: "+41 91 971 41 72",
+    rating: 4.2,
+    reviews: 97,
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=The%20Climb&query_place_id=ChIJ_eTvs_UthEcR_BFhqxOWGyM"
+  }
+];
+
+function renderStars(score) {
+  if (score === null) return '<span class="no-phone">N/D</span>';
+  const full = Math.round(score);
+  return '★'.repeat(full) + '☆'.repeat(5 - full);
+}
+
+function buildRow(item) {
+  return `
+    <tr>
+      <td>
+        <div class="name">${item.name}</div>
+        <a class="maps-link" href="${item.mapsUrl}" target="_blank" rel="noopener">
+          <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          Vedi su Maps
+        </a>
+      </td>
+      <td><span class="category-pill">${item.category}</span></td>
+      <td>${item.address}</td>
+      <td>${item.phone ? `<span class="phone">${item.phone}</span>` : '<span class="no-phone">Non disponibile</span>'}</td>
+      <td>
+        ${item.rating !== null
+          ? `<div class="rating">
+               <span class="stars">${renderStars(item.rating)}</span>
+               <span class="score">${item.rating.toFixed(1)}</span>
+               <span class="reviews">(${item.reviews})</span>
+             </div>`
+          : '<span class="no-phone">N/D</span>'
+        }
+      </td>
+      <td><span class="no-website">✕ Nessun sito</span></td>
+    </tr>`;
+}
+
+let sortCol = null;
+let sortDir = 1;
+let activeData = [...DATA];
+
+function applyFilters() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const cat = document.getElementById('categoryFilter').value;
+  const minRating = parseFloat(document.getElementById('ratingFilter').value) || 0;
+
+  activeData = DATA.filter(item => {
+    const matchSearch = !search ||
+      item.name.toLowerCase().includes(search) ||
+      item.address.toLowerCase().includes(search) ||
+      item.category.toLowerCase().includes(search);
+    const matchCat = !cat || item.category === cat;
+    const matchRating = !minRating || (item.rating !== null && item.rating >= minRating);
+    return matchSearch && matchCat && matchRating;
+  });
+
+  if (sortCol) {
+    activeData.sort((a, b) => {
+      const av = a[sortCol] ?? '';
+      const bv = b[sortCol] ?? '';
+      return av < bv ? -sortDir : av > bv ? sortDir : 0;
+    });
+  }
+
+  render();
+}
+
+function render() {
+  const tbody = document.getElementById('tableBody');
+  const empty = document.getElementById('emptyState');
+  document.getElementById('countLabel').textContent = `${activeData.length} attività trovate`;
+
+  if (activeData.length === 0) {
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    tbody.innerHTML = activeData.map(buildRow).join('');
+  }
+}
+
+// Populate category filter
+const cats = [...new Set(DATA.map(d => d.category))].sort();
+const catSel = document.getElementById('categoryFilter');
+cats.forEach(c => {
+  const opt = document.createElement('option');
+  opt.value = c; opt.textContent = c;
+  catSel.appendChild(opt);
+});
+
+// Sort on header click
+document.querySelectorAll('th[data-col]').forEach(th => {
+  th.addEventListener('click', () => {
+    const col = th.dataset.col;
+    if (sortCol === col) {
+      sortDir *= -1;
+      th.className = sortDir === 1 ? 'asc' : 'desc';
+    } else {
+      document.querySelectorAll('th').forEach(t => t.className = '');
+      sortCol = col;
+      sortDir = 1;
+      th.className = 'asc';
+    }
+    applyFilters();
+  });
+});
+
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+document.getElementById('categoryFilter').addEventListener('change', applyFilters);
+document.getElementById('ratingFilter').addEventListener('change', applyFilters);
+
+applyFilters();
+</script>
+</body>
+</html>
