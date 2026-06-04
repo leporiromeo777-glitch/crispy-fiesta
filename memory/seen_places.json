@@ -1,0 +1,48 @@
+{
+  "description": "Registro delle attività già estratte. Ogni entry contiene il place_id Google Maps per evitare duplicati nelle run future.",
+  "last_updated": "2026-06-04",
+  "places": [
+    {
+      "place_id": "ChIJtTMORdU3hEcR9PauZTXR6PE",
+      "name": "Ristorante Val Colla B&B",
+      "address": "Via Cantonale 40, 6951 Bogno, Lugano",
+      "added_on": "2026-06-04"
+    },
+    {
+      "place_id": "ChIJAQUyoloxhEcRq-5CEdQW9SY",
+      "name": "Grotto del Faggio",
+      "address": "Strada di Arla 1, 6968 Lugano",
+      "added_on": "2026-06-04"
+    },
+    {
+      "place_id": "ChIJLfyQnfo2hEcRVnMw8AMRyOc",
+      "name": "Alpe Pietrarossa",
+      "address": "6951 Lugano",
+      "added_on": "2026-06-04"
+    },
+    {
+      "place_id": "ChIJIz7vFAA3hEcRkyp5-uH7Pjg",
+      "name": "6951 Colla-Lugano",
+      "address": "Colla Nucleo 1, 6951 Lugano",
+      "added_on": "2026-06-04"
+    },
+    {
+      "place_id": "ChIJy7RHaxQzhEcRcw-mmFyU070",
+      "name": "Dama's Cafè Bar Lugano",
+      "address": "Via al Fiume 10, Viganello, 6962 Lugano",
+      "added_on": "2026-06-04"
+    },
+    {
+      "place_id": "ChIJGxHpIH4thEcRnzuq8nxmCJQ",
+      "name": "Bar Lo Specchio / Swisslos",
+      "address": "Via S. Carlo 7, 6932 Breganzona",
+      "added_on": "2026-06-04"
+    },
+    {
+      "place_id": "ChIJ_eTvs_UthEcR_BFhqxOWGyM",
+      "name": "The Climb",
+      "address": "Via Maggio 23, 6900 Lugano",
+      "added_on": "2026-06-04"
+    }
+  ]
+}
