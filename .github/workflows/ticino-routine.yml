@@ -1,0 +1,42 @@
+name: Ticino Activities — Weekly Scrape
+
+on:
+  schedule:
+    # Ogni lunedì alle 08:00 UTC (09:00 ora svizzera)
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+    # Permette lancio manuale da GitHub → Actions → Run workflow
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    permissions:
+      contents: write  # per committare seen_places.json aggiornato
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: claude/bold-lovelace-ATxWh
+
+      - name: Run Claude Code routine
+        uses: anthropics/claude-code-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt_file: ROUTINE_PROMPT.md
+          allowed_tools: >
+            Bash,
+            Read,
+            Write,
+            Edit,
+            mcp__Notion__notion-create-pages,
+            mcp__Notion__notion-search,
+            mcp__Notion__notion-fetch,
+            mcp__Zapier__execute_zapier_write_action,
+            mcp__Zapier__execute_zapier_read_action,
+            mcp__Zapier__list_enabled_zapier_actions
+        env:
+          ZAPIER_MCP_URL: ${{ secrets.ZAPIER_MCP_URL }}
+          NOTION_MCP_TOKEN: ${{ secrets.NOTION_MCP_TOKEN }}
